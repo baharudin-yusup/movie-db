@@ -1,17 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_db/core/models/movie.dart';
 
-class DetailScreen extends StatefulWidget {
+import '../../../core/models/movie.dart';
+
+class DetailScreen extends StatelessWidget {
   final Movie movie;
 
   const DetailScreen({Key? key, required this.movie}) : super(key: key);
 
-  @override
-  _DetailScreenState createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = const TextStyle(color: Colors.white);
@@ -29,7 +25,7 @@ class _DetailScreenState extends State<DetailScreen> {
               background: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: CachedNetworkImageProvider(widget.movie.posterUri.toString()),
+                      image: CachedNetworkImageProvider(movie.posterUri.toString()),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter),
                 ),
@@ -44,7 +40,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(
-                        widget.movie.title,
+                        movie.title,
                         style: textStyle.copyWith(
                           fontSize: 42,
                           fontWeight: FontWeight.w800,
@@ -61,7 +57,7 @@ class _DetailScreenState extends State<DetailScreen> {
               SizedBox(
                 height: 30,
                 child: ListView.builder(
-                    itemCount: widget.movie.genres.length,
+                    itemCount: movie.genres.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Container(
@@ -71,7 +67,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             borderRadius: BorderRadius.circular(99),
                             border: Border.all(color: Colors.white, width: 1)),
                         child: Center(
-                          child: Text(widget.movie.genres[index], style: textStyle),
+                          child: Text(movie.genres[index], style: textStyle),
                         ),
                       );
                     }),
@@ -81,7 +77,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.movie.description, style: textStyle),
+                    Text(movie.description, style: textStyle),
                     const SizedBox(
                       height: 12,
                     ),
@@ -91,7 +87,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: 4,
                     ),
                     Text(
-                      widget.movie.releaseDate?.toString().substring(0, 10) ?? 'Unknown',
+                      movie.releaseDate?.toString().substring(0, 10) ?? 'Unknown',
                       style: textStyle,
                     ),
                     const SizedBox(
@@ -102,7 +98,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     const SizedBox(
                       height: 4,
                     ),
-                    Text(widget.movie.voteAverage.toString(), style: textStyle),
+                    Text(movie.voteAverage.toString(), style: textStyle),
                     const SizedBox(
                       height: 12,
                     ),
@@ -111,7 +107,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     const SizedBox(
                       height: 4,
                     ),
-                    Text(widget.movie.voteCount.toString(), style: textStyle),
+                    Text(movie.voteCount.toString(), style: textStyle),
                     const SizedBox(
                       height: 12,
                     ),
@@ -125,7 +121,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
-                    imageUrl: widget.movie.backdropUri.toString(),
+                    imageUrl: movie.backdropUri.toString(),
                     fit: BoxFit.fitWidth,
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
